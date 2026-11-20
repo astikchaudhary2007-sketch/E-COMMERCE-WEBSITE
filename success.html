@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order confirmed — Loot Market</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="wrap" id="root" style="max-width:1080px"></main>
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/pages/orders.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const root = document.getElementById("root");
+      const o = LM.orders.get(LM.param("id"));
+      if (!o) { root.innerHTML = `<div class="empty panel" style="margin:30px 0"><h3>Order not found</h3><p>We couldn't find that order.</p><a class="btn" href="orders.html">Your orders</a></div>`; return; }
+      const render = () => {
+        const fresh = LM.orders.get(o.id);
+        root.innerHTML = `
+          <section class="success-hero">
+            <div class="tick">${ico("check", 36)}</div>
+            <h1>Thank you, ${LM.esc(fresh.address.name.split(" ")[0])}! Your order is confirmed.</h1>
+            <p>Order <b>${fresh.id}</b> · A confirmation has been sent to ${LM.esc(fresh.address.email)}</p>
+            <div style="display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap">
+              <a class="btn btn-accent" href="shop.html">Continue shopping</a>
+              <a class="btn btn-ghost" href="orders.html">View all orders</a>
+            </div>
+          </section>
+          ${orderCard(fresh)}`;
+      };
+      bindOrderActions(root, render);
+      render();
+    });
+  </script>
+</body>
+</html>

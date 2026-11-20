@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your cart — Loot Market</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main class="wrap">
+    <h1 class="page-title">Shopping cart</h1>
+    <div id="cart-root"></div>
+
+    <section class="section" id="saved-sec" hidden>
+      <div class="section-head"><div><h2>Saved for later</h2></div></div>
+      <div class="panel" style="padding:0 20px" id="saved"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>You might also like</h2></div></div>
+      <div class="rail" id="recs"></div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/pages/summary.js"></script>
+  <script src="js/pages/cart.js"></script>
+</body>
+</html>

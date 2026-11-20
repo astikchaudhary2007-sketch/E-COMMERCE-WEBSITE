@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product — Loot Market</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main class="wrap" id="pdp-root">
+    <nav class="crumbs" id="crumbs"></nav>
+    <div class="pdp" id="pdp"></div>
+
+    <section class="panel" style="padding:8px 24px 28px">
+      <div class="tabs" role="tablist" id="tabs">
+        <button class="on" data-tab="desc">About this item</button>
+        <button data-tab="specs">Specifications</button>
+        <button data-tab="reviews">Ratings &amp; reviews</button>
+        <button data-tab="ship">Delivery &amp; returns</button>
+      </div>
+      <div id="tab-body"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><div><h2>Similar products</h2><p id="sim-sub"></p></div></div>
+      <div class="rail" id="similar"></div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/pages/product.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your orders — Loot Market</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="wrap" style="padding-bottom:40px">
+    <nav class="crumbs"><a href="index.html">Home</a><span>›</span><span>Your orders</span></nav>
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:18px">
+      <h1 class="page-title">Your orders</h1>
+      <div class="sort">
+        <input class="field" id="find" placeholder="Search by order # or product" style="height:38px;width:260px;border-radius:999px">
+        <select id="filter"><option value="all">All orders</option><option value="active">Active</option><option value="Delivered">Delivered</option><option value="Cancelled">Cancelled</option></select>
+      </div>
+    </div>
+    <div id="list"></div>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/pages/orders.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const list = document.getElementById("list");
+      const find = document.getElementById("find"), filter = document.getElementById("filter");
+      const render = () => {
+        const q = find.value.trim().toLowerCase(), f = filter.value;
+        const all = LM.orders.all();
+        if (!all.length) { list.innerHTML = `<div class="empty panel"><h3>No orders yet</h3><p>When you place an order it'll show up here with live tracking.</p><a class="btn btn-accent" href="shop.html">Start shopping</a></div>`; return; }
+        const rows = all.filter((o) => {
+          const st = orderStage(o);
+          if (f === "Cancelled" && st !== -1) return false;
+          if (f === "Delivered" && st !== 4) return false;
+          if (f === "active" && (st === -1 || st === 4)) return false;
+          return !q || o.id.toLowerCase().includes(q) || o.items.some((i) => i.title.toLowerCase().includes(q));
+        });
+        list.innerHTML = rows.length ? rows.map((o) => orderCard(o)).join("") : `<div class="empty panel"><h3>No matching orders</h3><p>Try a different search or filter.</p></div>`;
+      };
+      find.addEventListener("input", render);
+      filter.addEventListener("change", render);
+      bindOrderActions(list, render);
+      render();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wishlist — Loot Market</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="wrap" style="padding-bottom:40px">
+    <nav class="crumbs"><a href="index.html">Home</a><span>›</span><span>Wishlist</span></nav>
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:18px">
+      <div><h1 class="page-title">Your wishlist</h1><p class="muted" id="sub"></p></div>
+      <button class="btn btn-sm" id="all-to-cart" hidden>Add all to cart</button>
+    </div>
+    <div class="grid" id="list"></div>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const list = document.getElementById("list"), btn = document.getElementById("all-to-cart");
+      const render = () => {
+        const items = LM.wish.all().map(LM.byId).filter(Boolean);
+        document.getElementById("sub").textContent = items.length ? `${items.length} saved item${items.length > 1 ? "s" : ""} · prices update automatically` : "";
+        btn.hidden = !items.length;
+        list.innerHTML = items.length ? items.map(productCard).join("")
+          : `<div class="empty panel" style="grid-column:1/-1"><svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--line-2)" stroke-width="1.2" style="margin:0 auto 14px">${ICON.heart}</svg><h3>Nothing saved yet</h3><p>Tap the heart on any product to save it for later.</p><a class="btn btn-accent" href="shop.html">Browse products</a></div>`;
+      };
+      btn.onclick = () => { LM.wish.all().forEach((id) => { const p = LM.byId(id); LM.cart.add(id, 1, p.colors ? p.colors[0][0] : null, p.options ? p.options.values[0] : null); }); toast(`Added to <a href="cart.html">cart</a>`); };
+      document.addEventListener("lm:change", (e) => { if (e.detail === "lm_wish") render(); });
+      render();
+    });
+  </script>
+</body>
+</html>

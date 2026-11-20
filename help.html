@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Help centre — Loot Market</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="wrap">
+    <h1 class="page-title">Help centre</h1>
+    <p class="muted">Answers to the questions we hear most. Still stuck? Write to us below.</p>
+    <div class="help-grid">
+      <nav class="help-nav panel">
+        <a href="#shipping">Shipping &amp; delivery</a>
+        <a href="#returns">Returns &amp; refunds</a>
+        <a href="#payments">Payment options</a>
+        <a href="#sell">Sell on Loot Market</a>
+        <a href="#contact">Contact us</a>
+      </nav>
+      <div>
+        <section class="help-sec panel" id="shipping">
+          <h2>Shipping &amp; delivery</h2>
+          <details open><summary>How much does delivery cost?</summary><p>Standard delivery is free on orders of ₹499 or more. Below that, it's ₹40. Express delivery costs ₹149 on any order.</p></details>
+          <details><summary>When will my order arrive?</summary><p>Metro pincodes usually get standard delivery in 2–3 days and Express in 1 day. Other regions take 4–6 days. You'll see the exact date on each product page once you enter your pincode.</p></details>
+          <details><summary>How do I track my order?</summary><p>Go to <a class="link" href="orders.html">Your orders</a>. Each order shows a live timeline: Ordered, Packed, Shipped, Out for delivery, Delivered.</p></details>
+        </section>
+        <section class="help-sec panel" id="returns">
+          <h2>Returns &amp; refunds</h2>
+          <details open><summary>What is the return window?</summary><p>Most items can be returned within 7 days of delivery if they are damaged, defective, or not as described. Innerwear, beauty products that have been opened, and books with markings can't be returned.</p></details>
+          <details><summary>When will I get my refund?</summary><p>After pickup, refunds go back to the original payment method within 5–7 business days. Cash on delivery orders are refunded to your bank account or as Loot credit.</p></details>
+          <details><summary>Can I cancel an order?</summary><p>Yes. You can cancel any order until it ships, from <a class="link" href="orders.html">Your orders</a>.</p></details>
+        </section>
+        <section class="help-sec panel" id="payments">
+          <h2>Payment options</h2>
+          <p>We accept Visa, Mastercard, RuPay and American Express credit and debit cards, UPI (Google Pay, PhonePe, Paytm, BHIM and any UPI ID), net banking from 50+ banks, and cash on delivery for orders up to ₹50,000.</p>
+          <details><summary>Is it safe to pay on Loot Market?</summary><p>Payments are processed over 256-bit SSL by a PCI-DSS compliant gateway. Card payments need your bank's OTP (3-D Secure), and we never store your full card number or CVV.</p></details>
+          <details><summary>Which coupons can I use?</summary><p><b>LOOT10</b>: 10% off up to ₹500 on orders of ₹999 or more. <b>FIRST200</b>: flat ₹200 off on orders of ₹1,499 or more. <b>BIGLOOT</b>: 15% off up to ₹3,000 on orders of ₹20,000 or more. You can use one coupon per order.</p></details>
+        </section>
+        <section class="help-sec panel" id="sell">
+          <h2>Sell on Loot Market</h2>
+          <p>Reach shoppers across India with zero listing fees for your first 90 days. Register with your GSTIN and bank details, list your catalogue, and we handle storage, delivery and returns through Loot Fulfilment.</p>
+        </section>
+        <section class="help-sec panel" id="contact">
+          <h2>Contact us</h2>
+          <p style="margin-bottom:16px">Call <b>1800-210-LOOT</b> (toll-free, 24×7) or send us a message and we'll reply within 4 hours.</p>
+          <form id="contact-form" class="form-grid" novalidate>
+            <div><label class="lbl" for="h-name">Name</label><input class="field" id="h-name" required></div>
+            <div><label class="lbl" for="h-email">Email</label><input class="field" id="h-email" type="email" required></div>
+            <div class="full"><label class="lbl" for="h-topic">Topic</label><select class="field" id="h-topic"><option>Order issue</option><option>Return or refund</option><option>Payment problem</option><option>Product question</option><option>Something else</option></select></div>
+            <div class="full"><label class="lbl" for="h-msg">Message</label><textarea class="field" id="h-msg" rows="4" required></textarea></div>
+            <div class="full"><button class="btn btn-accent">Send message</button></div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    document.getElementById("contact-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const f = e.target;
+      if (!f.checkValidity()) { [...f.elements].forEach((el) => el.classList && el.classList.toggle("invalid", el.willValidate && !el.checkValidity())); toast("Please fill in all fields", "err"); return; }
+      f.reset();
+      toast("Message sent. We'll reply within 4 hours.");
+    });
+  </script>
+</body>
+</html>
